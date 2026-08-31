@@ -16,9 +16,9 @@ vector<vector<size_t>> invertPrefs(vector<vector<size_t>>& prefs) {
     return invertedPrefs;
 }
 
-vector<size_t> GaleShapley(vector<vector<size_t>>& malePref, vector<vector<size_t>>& femalePrefs) {
+vector<size_t> GaleShapley(vector<vector<size_t>>& malePrefs, vector<vector<size_t>>& femalePrefs) {
     vector<vector<size_t>> invertedPrefs = invertPrefs(femalePrefs);
-    size_t n = malePref.size();
+    size_t n = malePrefs.size();
     queue<size_t> q;
     vector<size_t> engagements(n, n);
     vector<size_t> currentRank(n, 0);
@@ -28,7 +28,7 @@ vector<size_t> GaleShapley(vector<vector<size_t>>& malePref, vector<vector<size_
     while (!q.empty()) {
         size_t man = q.front();
         q.pop();
-        size_t woman = malePref[man][currentRank[man]];
+        size_t woman = malePrefs[man][currentRank[man]];
         if (engagements[woman] == n) {
             engagements[woman] = man;
         }

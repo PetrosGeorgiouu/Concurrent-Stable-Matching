@@ -3,4 +3,4 @@
 
 using namespace std;
 
-vector<size_t> GaleShapley(vector<vector<size_t>>& malePref, vector<vector<size_t>>& femalePrefs);
+vector<size_t> GaleShapley(vector<vector<size_t>>& malePrefs, vector<vector<size_t>>& femalePrefs);
