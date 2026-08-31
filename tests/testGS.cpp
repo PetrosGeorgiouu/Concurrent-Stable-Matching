@@ -6,7 +6,7 @@
 #include <string>
 #include <utility>
 #include <vector>
-#include "GaleShapley"
+#include "GaleShapley.hpp"
 
 namespace
 {
@@ -218,7 +218,7 @@ int main()
         std::vector<std::vector<std::size_t>> femalePrefs{{0}};
         const std::vector<std::size_t> expected{0};
 
-        const auto engagements{GaleShapely(malePref, femalePrefs)};
+        const auto engagements{GaleShapley(malePref, femalePrefs)};
         expectMatching(engagements, expected, malePref, femalePrefs);
         return formatMatching(engagements); });
 
@@ -239,7 +239,7 @@ int main()
         // woman 0 -> man 1, woman 1 -> man 0, woman 2 -> man 2
         const std::vector<std::size_t> expected{1, 0, 2};
 
-        const auto engagements{GaleShapely(malePref, femalePrefs)};
+        const auto engagements{GaleShapley(malePref, femalePrefs)};
         expectMatching(engagements, expected, malePref, femalePrefs);
         return formatMatching(engagements); });
 
@@ -259,7 +259,7 @@ int main()
         // Because the men propose, each man receives his first choice.
         const std::vector<std::size_t> expected{0, 1};
 
-        const auto engagements{GaleShapely(malePref, femalePrefs)};
+        const auto engagements{GaleShapley(malePref, femalePrefs)};
         expectMatching(engagements, expected, malePref, femalePrefs);
         return formatMatching(engagements); });
 
@@ -281,7 +281,7 @@ int main()
 
         const std::vector<std::size_t> expected{2, 1, 0, 3};
 
-        const auto engagements{GaleShapely(malePref, femalePrefs)};
+        const auto engagements{GaleShapley(malePref, femalePrefs)};
         expectMatching(engagements, expected, malePref, femalePrefs);
         return formatMatching(engagements); });
 

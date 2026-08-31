@@ -1,5 +1,5 @@
 #include <vector>
-#include "GaleShapley"
+#include "GaleShapley.hpp"
 #include <queue>
 
 using namespace std;
@@ -10,17 +10,17 @@ vector<vector<size_t>> invertPrefs(vector<vector<size_t>>& prefs) {
 
     for (size_t i = 0; i < n; i++) {
         for (size_t j = 0; j < n; j++) {
-            invertedPrefs[prefs[i][j]] = j;
+            invertedPrefs[i][prefs[i][j]] = j;
         }
     }
     return invertedPrefs;
 }
 
 vector<size_t> GaleShapley(vector<vector<size_t>>& malePref, vector<vector<size_t>>& femalePrefs) {
-    invertedPrefs = invertedPrefs(femalePrefs);
+    vector<vector<size_t>> invertedPrefs = invertPrefs(femalePrefs);
     size_t n = malePref.size();
     queue<size_t> q;
-    vector<size_t> engagements(n, -1);
+    vector<size_t> engagements(n, n);
     vector<size_t> currentRank(n, 0);
     for (size_t i = 0; i < n; i++) {
         q.push(i);
@@ -29,7 +29,7 @@ vector<size_t> GaleShapley(vector<vector<size_t>>& malePref, vector<vector<size_
         size_t man = q.front();
         q.pop();
         size_t woman = malePref[man][currentRank[man]];
-        if (engagements[woman] == -1) {
+        if (engagements[woman] == n) {
             engagements[woman] = man;
         }
         else {
