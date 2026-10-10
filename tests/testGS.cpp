@@ -6,7 +6,7 @@
 #include <string>
 #include <utility>
 #include <vector>
-#include "GaleShapley.hpp"
+#include "StableMatching.hpp"
 
 namespace
 {
@@ -218,8 +218,10 @@ int main()
         std::vector<std::vector<std::size_t>> femalePrefs{{0}};
         const std::vector<std::size_t> expected{0};
 
+        // GaleShapley converts femalePrefs into rank tables in place.
+        const auto originalFemalePrefs = femalePrefs;
         const auto engagements{GaleShapley(malePref, femalePrefs)};
-        expectMatching(engagements, expected, malePref, femalePrefs);
+        expectMatching(engagements, expected, malePref, originalFemalePrefs);
         return formatMatching(engagements); });
 
     suite.run("rejections produce the expected stable matching", []
@@ -239,8 +241,10 @@ int main()
         // woman 0 -> man 1, woman 1 -> man 0, woman 2 -> man 2
         const std::vector<std::size_t> expected{1, 0, 2};
 
+        // GaleShapley converts femalePrefs into rank tables in place.
+        const auto originalFemalePrefs = femalePrefs;
         const auto engagements{GaleShapley(malePref, femalePrefs)};
-        expectMatching(engagements, expected, malePref, femalePrefs);
+        expectMatching(engagements, expected, malePref, originalFemalePrefs);
         return formatMatching(engagements); });
 
     suite.run("men receive the proposer-optimal stable matching", []
@@ -259,8 +263,10 @@ int main()
         // Because the men propose, each man receives his first choice.
         const std::vector<std::size_t> expected{0, 1};
 
+        // GaleShapley converts femalePrefs into rank tables in place.
+        const auto originalFemalePrefs = femalePrefs;
         const auto engagements{GaleShapley(malePref, femalePrefs)};
-        expectMatching(engagements, expected, malePref, femalePrefs);
+        expectMatching(engagements, expected, malePref, originalFemalePrefs);
         return formatMatching(engagements); });
 
     suite.run("a chain of displaced engagements is handled correctly", []
@@ -281,8 +287,10 @@ int main()
 
         const std::vector<std::size_t> expected{2, 1, 0, 3};
 
+        // GaleShapley converts femalePrefs into rank tables in place.
+        const auto originalFemalePrefs = femalePrefs;
         const auto engagements{GaleShapley(malePref, femalePrefs)};
-        expectMatching(engagements, expected, malePref, femalePrefs);
+        expectMatching(engagements, expected, malePref, originalFemalePrefs);
         return formatMatching(engagements); });
 
     suite.printSummary();
